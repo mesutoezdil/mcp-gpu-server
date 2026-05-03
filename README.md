@@ -2,21 +2,50 @@ mcp-name: io.github.mesutoezdil/mcp-gpu-server
 
 # mcp-gpu-server
 
-MCP server for GPU monitoring. Queries NVIDIA GPUs via NVML or nvidia-smi.
+An MCP server that exposes NVIDIA GPU metrics as tools. Once connected, any MCP-compatible client can query your GPU status in real time directly from a conversation.
 
-## Tools
+## What it does
 
-    gpu_info         name, driver, CUDA version
-    gpu_utilization  core and memory utilization %
-    gpu_vram         total / used / free VRAM in MiB
-    gpu_temperature  temperature in C
-    gpu_stats        full snapshot of all metrics
+Instead of running nvidia-smi manually, you ask your AI assistant and it calls these tools automatically:
+
+    gpu_info         GPU name, driver version, CUDA version
+    gpu_utilization  core utilization % and memory bandwidth %
+    gpu_vram         total, used, free VRAM in MiB and usage %
+    gpu_temperature  GPU core temperature in Celsius
+    gpu_stats        everything above in one call
+
+Example response from gpu_stats:
+
+    {
+      "count": 1,
+      "gpus": [{
+        "index": 0,
+        "name": "NVIDIA L40S",
+        "driver": "580.126.09",
+        "cuda": "13.0",
+        "temp_c": 29,
+        "gpu_pct": 0,
+        "mem_pct": 0,
+        "vram": {
+          "total_mib": 46068,
+          "used_mib": 610,
+          "free_mib": 45457,
+          "pct": 1.3
+        }
+      }]
+    }
+
+## How it works
+
+Queries NVML (pynvml) directly when available. Falls back to nvidia-smi subprocess if NVML is not accessible. Returns clean JSON in both cases.
 
 ## Install
 
     pip install mcp-gpu-server
 
-## MCP config
+## Connect to your MCP client
+
+Add this to your MCP client config file:
 
     {
       "mcpServers": {
@@ -26,6 +55,11 @@ MCP server for GPU monitoring. Queries NVIDIA GPUs via NVML or nvidia-smi.
       }
     }
 
+
+## Run tests
+
+    python tests/test_gpu.py
+
 ## Requirements
 
-Python 3.10 or higher with NVIDIA GPU and drivers installed.
+Python 3.10 or higher. NVIDIA GPU with drivers installed on the host machine.
