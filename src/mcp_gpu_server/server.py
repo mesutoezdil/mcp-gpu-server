@@ -40,17 +40,20 @@ def _all_stats() -> dict[str, Any]:
     except Exception:
         pass
 
-    rows = subprocess.run(
-        [
-            "nvidia-smi",
-            "--query-gpu=index,name,driver_version,compute_cap,temperature.gpu,"
-            "utilization.gpu,utilization.memory,memory.total,memory.used,memory.free",
-            "--format=csv,noheader,nounits",
-        ],
-        capture_output=True,
-        text=True,
-        check=True,
-    ).stdout.strip().splitlines()
+    try:
+        rows = subprocess.run(
+            [
+                "nvidia-smi",
+                "--query-gpu=index,name,driver_version,compute_cap,temperature.gpu,"
+                "utilization.gpu,utilization.memory,memory.total,memory.used,memory.free",
+                "--format=csv,noheader,nounits",
+            ],
+            capture_output=True,
+            text=True,
+            check=True,
+        ).stdout.strip().splitlines()
+    except Exception:
+        return {"count": 0, "gpus": [], "error": "No NVIDIA GPU or nvidia-smi not found"}
 
     gpus = []
     for row in rows:

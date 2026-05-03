@@ -2,6 +2,7 @@
 
 mcp-name: io.github.mesutoezdil/mcp-gpu-server
 
+
 MCP server for GPU monitoring. Queries NVIDIA GPUs via NVML (preferred) or `nvidia-smi` fallback.
 
 ## Tools
