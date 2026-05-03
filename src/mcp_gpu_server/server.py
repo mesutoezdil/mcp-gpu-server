@@ -100,7 +100,7 @@ def gpu_vram() -> dict[str, Any]:
     """VRAM total, used, free (MiB) and utilization % for each device."""
     s = _all_stats()
     return {"count": s["count"], "gpus": [
-        {"index": g["index"], **g["vram"]} for g in s["gpus"]
+        {"index": g["index"]} | g["vram"] for g in s["gpus"]
     ]}
 
 
