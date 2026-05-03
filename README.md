@@ -2,6 +2,8 @@ mcp-name: io.github.mesutoezdil/mcp-gpu-server
 
 # mcp-gpu-server
 
+[![PyPI](https://img.shields.io/pypi/v/mcp-gpu-server)](https://pypi.org/project/mcp-gpu-server/)
+
 An MCP server that exposes NVIDIA GPU metrics as tools. Once connected, any MCP-compatible client can query your GPU status in real time directly from a conversation.
 
 ## What it does
