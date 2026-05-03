@@ -1,39 +1,31 @@
-# mcp-gpu-server
-
 mcp-name: io.github.mesutoezdil/mcp-gpu-server
 
+# mcp-gpu-server
 
-MCP server for GPU monitoring. Queries NVIDIA GPUs via NVML (preferred) or `nvidia-smi` fallback.
+MCP server for GPU monitoring. Queries NVIDIA GPUs via NVML or nvidia-smi.
 
 ## Tools
 
-| Tool | Returns |
-|------|---------|
-| `gpu_info` | Name, driver, CUDA version |
-| `gpu_utilization` | Core and memory utilization % |
-| `gpu_vram` | Total / used / free VRAM (MiB) |
-| `gpu_temperature` | Temperature in °C |
-| `gpu_stats` | Full snapshot of all metrics |
+    gpu_info         name, driver, CUDA version
+    gpu_utilization  core and memory utilization %
+    gpu_vram         total / used / free VRAM in MiB
+    gpu_temperature  temperature in C
+    gpu_stats        full snapshot of all metrics
 
 ## Install
 
-```bash
-pip install mcp-gpu-server
-```
+    pip install mcp-gpu-server
 
 ## MCP config
 
-```json
-{
-  "mcpServers": {
-    "gpu": {
-      "command": "mcp-gpu-server"
+    {
+      "mcpServers": {
+        "gpu": {
+          "command": "mcp-gpu-server"
+        }
+      }
     }
-  }
-}
-```
 
 ## Requirements
 
-- Python 3.10+
-- NVIDIA GPU with drivers installed
+Python 3.10 or higher with NVIDIA GPU and drivers installed.
